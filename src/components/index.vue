@@ -29,7 +29,7 @@
       <div class="block">
         <el-carousel height='4.4rem'>
           <el-carousel-item v-for="item in indexpicinfo" :key="item.pic_id" >
-            <div class="slideshowImg" @click="jumpToActivity()">
+            <div class="slideshowImg" @click="jumpToActivity(item.data_id,item.type_id)">
               <img :src="item.pic_url">
             </div>
           </el-carousel-item>
@@ -287,25 +287,25 @@
           console.log(res);
 
           //测试数据
-          // let wxuserinfo = {
-          //   city: "",
-          //   country: "中国",
-          //   groupid: 0,
-          //   headimgurl: "http://thirdwx.qlogo.cn/mmopen/POrowfjjr3eia3LA76aVZNV4heLxk3d0WFXFaxTOVVwnSe75xx2ibpfspgTbsYXOZ7DNAvoRk7EP6oGicSJ8TT399CUVHE4nagib/132",
-          //   language: "zh_CN",
-          //   nickname: "小地瓜",
-          //   openid: "ozW8152q6v8cOZBAHUGSOO2RBOEg",
-          //   province: "河北",
-          //   qr_scene: 0,
-          //   qr_scene_str: "",
-          //   remark: "",
-          //   sex: 2,
-          //   subscribe: 1,
-          //   subscribe_scene: "ADD_SCENE_SEARCH",
-          //   subscribe_time: 1543585172,
-          //   tagid_list: Array(0),
-          //   unionid: "o2mp91ZOr14sDiPgmQOsB2PSffTI"
-          // };
+          let wxuserinfo = {
+            city: "",
+            country: "中国",
+            groupid: 0,
+            headimgurl: "http://thirdwx.qlogo.cn/mmopen/POrowfjjr3eia3LA76aVZNV4heLxk3d0WFXFaxTOVVwnSe75xx2ibpfspgTbsYXOZ7DNAvoRk7EP6oGicSJ8TT399CUVHE4nagib/132",
+            language: "zh_CN",
+            nickname: "小地瓜",
+            openid: "ozW8152q6v8cOZBAHUGSOO2RBOEg",
+            province: "河北",
+            qr_scene: 0,
+            qr_scene_str: "",
+            remark: "",
+            sex: 2,
+            subscribe: 1,
+            subscribe_scene: "ADD_SCENE_SEARCH",
+            subscribe_time: 1543585172,
+            tagid_list: Array(0),
+            unionid: "o2mp91ZOr14sDiPgmQOsB2PSffTI"
+          };
 
           //测试方法
           // this.$store.commit('changeUserInfo', wxuserinfo);
@@ -352,8 +352,8 @@
         .then(res => {
           console.log('-----------首页轮播图信息------------');
           console.log(res);
-          if (res.status === 200 && res.data && res.data.indexpicinfo) {
-            this.indexpicinfo = res.data.indexpicinfo
+          if (res.status === 200 && res.data && res.data.data) {
+            this.indexpicinfo = res.data.data
           }
         })
         .catch(res => {
@@ -392,11 +392,49 @@
 
     },
     methods: {
-      jumpToActivity() {
-        this.$router.push({
-          path: '/activity',
-          name: 'activity',
-        })
+      jumpToActivity(id,type) {
+        console.log(id + type);
+        // type_id 类型id. 1课程 2精品单文 3 作者 4活动
+        if(type == '1'){
+          this.$router.push(
+            {
+              path: '/list',
+              name: 'list',
+              params: {
+                name: 'course_id',
+                dataobj: id
+              }
+            }
+          )
+        } else if (type == '2'){
+          this.$router.push(
+            {
+              path: '/article_video',
+              name: 'article_video',
+              params: {
+                name: 'article_id',
+                dataobj: id,
+              }
+            }
+          )
+        } else if (type == '3') {
+          this.$router.push(
+            {
+              path: '/author',
+              name: 'author',
+              params: {
+                name: 'author_id',
+                dataobj: id
+              }
+            }
+          )
+        } else if (type == '4') {
+          this.$router.push({
+            path: '/activity',
+            name: 'activity',
+          })
+        }
+
       },
       jumpToNews(article_id,course_id) {
         console.log(article_id + course_id);

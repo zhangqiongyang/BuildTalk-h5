@@ -116,6 +116,8 @@ var checkOrder=(json)=>requestResponse('POST',smaBaseUrl+'/iscreateorder',json);
 var creatOrder=(json)=>requestResponse('POST',smaBaseUrl+'/fwhunifiedorderhandle',json);
 // 修改订单状态接口
 var changeOrderInfo=(json)=>requestResponse('POST',smaBaseUrl+'/updateorderstatus',json);
+// 查询支付状态接口
+var searchPayStatus=(json)=>requestResponse('POST',smaBaseUrl+'/searchorderis_pay',json)
 
 
 //我的留言页面
@@ -183,4 +185,5 @@ export {
   deleteHistory,
   checkBindMobile,
   uploadTrace,
+  searchPayStatus
 }
