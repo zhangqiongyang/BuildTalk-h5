@@ -18,7 +18,7 @@ import myMsgDetails from '@/components/myMsgDetails'
 import phone from '@/components/phone'
 import allNews from '@/components/allNews'
 import authorDesc from '@/components/authorDesc'
-
+import circleDetails from '@/components/circleDetails'
 
 
 Vue.use(Router)
@@ -118,6 +118,11 @@ export default new Router({
       path: '/authorDesc',
       name: 'authorDesc',
       component: authorDesc
+    },
+    {
+      path: '/circleDetails',
+      name: 'circleDetails',
+      component: circleDetails
     }
   ]
 })
